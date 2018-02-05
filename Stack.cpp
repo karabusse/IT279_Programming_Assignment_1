@@ -20,25 +20,45 @@ Node *top;
 class stack{
 
 public:
-    void push(char op,int num);
+    void createHead(int currentValue);
+    void push(char op,int currentValue);
     void pop();
-    void display();
+    int getOldValue();
+    int getCurrentValue();
+    char getOp();
+    string peek();
 };
 
-void stack :: push(char op,int num) //need help
-{
+/**
+ * creates head - sets oldVal and op to NULL
+ * @param currentValue
+ */
+void stack :: createHead(int currentValue){
     struct Node *newNode=new Node;
-    //fill data part
+    newNode->oldValue=NULL;
+    newNode->op=NULL;
+    newNode->currentValue=currentValue;
+}
+
+/**
+ * pushes op and current into a node with 3 data pieces
+ * @param op
+ * @param currentValue
+ */
+void stack :: push(char op,int currentValue){
+    int temp = head::currentValue;
+    struct Node *newNode=new Node;
+
+    newNode->oldValue=temp; //takes current value of previous and makes it oldVal
     newNode->op=op;
-    newNode->currentValue=num;
+    newNode->currentValue=currentValue;
     //link part
     newNode->next=top;
     //make newnode as top/head
     top=newNode;
 }
 
-void stack ::pop()
-{
+void stack :: pop(){
     if(top==NULL){
         cout<<"List is empty!"<<endl;
         return;
@@ -47,20 +67,25 @@ void stack ::pop()
     top=top->next;
 }
 
-void stack:: display()
-{
-    if(top==NULL){
-        cout<<"List is empty!"<<endl;
-        return;
-    }
-    struct Node *temp=top;
-    while(temp!=NULL){
-        cout<<temp->oldValue<<" ";
-        cout<<temp->op<<" ";
-        cout<<temp->currentValue<<" ";
-        cout<<endl;
-        temp=temp->next;
-    }
-    cout<<endl;
+int stack ::getCurrentValue() {
+
 }
+
+
+
+//void stack:: display(){
+//    if(top==NULL){
+//        cout<<"List is empty!"<<endl;
+//        return;
+//    }
+//    struct Node *temp=top;
+//    while(temp!=NULL){
+//        cout<<temp->oldValue<<" ";
+//        cout<<temp->op<<" ";
+//        cout<<temp->currentValue<<" ";
+//        cout<<endl;
+//        temp=temp->next;
+//    }
+//    cout<<endl;
+//}
 
