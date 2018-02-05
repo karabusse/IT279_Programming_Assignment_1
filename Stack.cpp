@@ -17,17 +17,7 @@ struct Node{
 };
 Node *top;
 
-class stack{
 
-public:
-    void createHead(int currentValue);
-    void push(char op,int currentValue);
-    void pop();
-    int getOldValue();
-    int getCurrentValue();
-    char getOp();
-    string peek();
-};
 
 /**
  * creates head - sets oldVal and op to NULL
@@ -48,7 +38,6 @@ void stack :: createHead(int currentValue){
 void stack :: push(char op,int currentValue){
     int temp = head::currentValue;
     struct Node *newNode=new Node;
-
     newNode->oldValue=temp; //takes current value of previous and makes it oldVal
     newNode->op=op;
     newNode->currentValue=currentValue;
@@ -68,9 +57,18 @@ void stack :: pop(){
 }
 
 int stack ::getCurrentValue() {
-
+    return top->currentValue;
 }
 
+int stack ::getOldValue() {
+    return top->oldValue;
+}
+
+char stack ::getOp() {
+    return top->op;
+}
+
+int main
 
 
 //void stack:: display(){
@@ -88,4 +86,6 @@ int stack ::getCurrentValue() {
 //    }
 //    cout<<endl;
 //}
+
+
 
