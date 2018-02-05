@@ -107,6 +107,8 @@ void list::remove(int pos){
  * Prompt user for value that should be deleted (using search and remove)
  * Print final linked list
  */
+
+/*
 int main() {
     list* l = new list();
     int input;
@@ -141,3 +143,4 @@ int main() {
     l->print();
     return 0;
 }
+ */
