@@ -1,6 +1,8 @@
 //
 // Created by Frazzlectra on 2/4/2018.
 //
+#include "QueueSimulator.h"
+#include "LinkedList.h"
 
 int main() {
     list* l = new list();
