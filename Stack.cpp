@@ -17,8 +17,6 @@ struct Node{
 };
 Node *top;
 
-
-
 /**
  * creates head - sets oldVal and op to NULL
  * @param currentValue
@@ -67,9 +65,6 @@ int stack ::getOldValue() {
 char stack ::getOp() {
     return top->op;
 }
-
-int main
-
 
 //void stack:: display(){
 //    if(top==NULL){
