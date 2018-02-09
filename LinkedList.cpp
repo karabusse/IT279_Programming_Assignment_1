@@ -9,21 +9,6 @@ struct node{
     node *next;
 };
 
-class list{
-public:
-    node *head, *tail;
-
-    list() {
-        head = NULL;
-        tail = NULL;
-    }
-
-    virtual void add(char op, int value);
-    virtual void print();
-    virtual void remove(int pos);
-    virtual int search(int value);
-};
-
 /*
  * Add new node containing x to the head (front) of the list
  */
