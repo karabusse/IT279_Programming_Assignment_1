@@ -5,27 +5,19 @@
 //  Created by David Mancol on 2/2/18.
 //  Copyright © 2018 David Mancol. All rights reserved.
 //
-
 #include <iostream>
+#include "Calculator.h"
 using namespace std;
-
-struct Node{
-    int oldValue;
-    char op;
-    int currentValue;
-    Node *next;
-};
-Node *top;
 
 /**
  * creates head - sets oldVal and op to NULL
  * @param currentValue
  */
-void stack :: createHead(int currentValue){
-    struct Node *newNode=new Node;
-    newNode->oldValue=NULL;
-    newNode->op=NULL;
-    newNode->currentValue=currentValue;
+void Calculator::createHead(int currentValue) {
+    struct Node *newNode = new Node;
+    newNode->oldValue = 0;
+    newNode->op = ' ';
+    newNode->currentValue = currentValue;
 }
 
 /**
@@ -33,54 +25,67 @@ void stack :: createHead(int currentValue){
  * @param op
  * @param currentValue
  */
-void stack :: push(char op,int currentValue){
-    int temp = head::currentValue;
-    struct Node *newNode=new Node;
-    newNode->oldValue=temp; //takes current value of previous and makes it oldVal
-    newNode->op=op;
-    newNode->currentValue=currentValue;
+void Calculator::push(char op, int currentValue) {
+    int temp = top->currentValue;
+    struct Node *newNode = new Node;
+    newNode->oldValue = temp; //takes current value of previous and makes it oldVal
+    newNode->op = op;
+    newNode->currentValue = currentValue;
+
+    if(op=='+'){
+        int temp = newNode->oldValue + newNode->currentValue;
+        newNode->currentValue = temp;
+        newNode->oldValue = 0;
+        newNode->op = ' ';
+    }
+    if(op=='-') {
+        int temp = newNode->oldValue - newNode->currentValue;
+        newNode->currentValue = temp;
+        newNode->oldValue = 0;
+    }
+    if(op=='*') {
+        int temp = newNode->oldValue * newNode->currentValue;
+        newNode->currentValue = temp;
+        newNode->oldValue = 0;
+    }
+    if(op=='/') {
+        int temp = newNode->oldValue - newNode->currentValue;
+        newNode->currentValue = temp;
+        newNode->oldValue = 0;
+    }
+    if(op=='%') {
+        int temp = newNode->oldValue % newNode->currentValue;
+        newNode->currentValue = temp;
+        newNode->oldValue = 0;
+    }
     //link part
-    newNode->next=top;
+    newNode->next = top;
     //make newnode as top/head
-    top=newNode;
+    top = newNode;
 }
 
-void stack :: pop(){
-    if(top==NULL){
-        cout<<"List is empty!"<<endl;
+void Calculator::pop() {
+    if (top == 0) {
+        cout << "List is empty!" << endl;
         return;
     }
-    cout<<top<<" is removed."<<endl;
-    top=top->next;
+    cout << top << " is removed." << endl;
+    top = top->next;
 }
 
-int stack ::getCurrentValue() {
+int Calculator::getCurrentValue() {
     return top->currentValue;
 }
 
-int stack ::getOldValue() {
+int Calculator::getOldValue() {
     return top->oldValue;
 }
 
-char stack ::getOp() {
+char Calculator::getOp() {
     return top->op;
 }
 
-//void stack:: display(){
-//    if(top==NULL){
-//        cout<<"List is empty!"<<endl;
-//        return;
-//    }
-//    struct Node *temp=top;
-//    while(temp!=NULL){
-//        cout<<temp->oldValue<<" ";
-//        cout<<temp->op<<" ";
-//        cout<<temp->currentValue<<" ";
-//        cout<<endl;
-//        temp=temp->next;
-//    }
-//    cout<<endl;
-//}
-
-
-
+void Calculator::display(){
+    Node temp = *top;
+    cout<<temp.currentValue<<endl;
+}
