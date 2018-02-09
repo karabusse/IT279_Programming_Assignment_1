@@ -61,3 +61,10 @@ int Queue::poll(){
     //return temp
     return arrival;
 }
+
+/**
+ * @return the size of the queue
+ */
+int Queue::getSize() {
+    return size;
+}

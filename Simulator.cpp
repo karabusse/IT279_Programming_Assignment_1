@@ -4,7 +4,6 @@
 #include "QueueSimulator.h"
 
 using namespace std;
-
 void printQueue( Queue* q );
 
 int main() {
@@ -44,7 +43,6 @@ int main() {
     customerTimeQueue->remove(l->search(input));
     customerTimeQueue->print();
     return 0;
-
      */
 }
 
