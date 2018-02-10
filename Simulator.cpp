@@ -1,55 +1,79 @@
 //
-// Created by Frazzlectra on 2/4/2018.
+// Created by Bronwyn on 2/4/2018.
 //
+#include <iostream>
 #include "QueueSimulator.h"
+#include <sstream>
+#include <cstdlib> //for random
 
 using namespace std;
-void printQueue( Queue* q );
+
+/**
+ * defining main variables for simulator
+ */
+//the integer x required by the assignment
+int maxServiceTime;
+//string for temporarily holding input
+string tempInput;
+
+/**
+ * defining classes of main
+ */
+//Prints contents of Queue
+void printQueueFront(Queue *q);
+
+void simulateDay(int maxTime);
+
 
 int main() {
 
     Queue* customerTimeQueue;
 
-    customerTimeQueue->getSize();
     int input;
     char choice;
-    cout << "Enter a list of integers in order to add them to the linked list. When you are done entering numbers, enter the letter n"<< endl;
-    for (;;) {
-        cin >> choice;
-        if ( choice != 'n' ) {
-            input = atoi( &choice );
-            printQueue( customerTimeQueue );
-        }
-        else {
-            break;
-        }
-    }
-    printQueue( customerTimeQueue );
+    cout << "Enter the Max number of minutes for the customer service Time "<< endl;
 
-    /*
-    int sum = 0;
-    double counter = 0;
-    node* current = l->head;
-    while (current != nullptr) {
-        sum += current->data;
-        counter++;
-        current = current->next;
-    }
-    cout << "The sum of the list is " << sum << endl;
-    cout << "The average of the list is " << (sum / counter) << endl;
 
-    cout << "Enter a value you'd like to delete " << endl;
-    cin >> input;
-    customerTimeQueue->remove(l->search(input));
-    customerTimeQueue->print();
-    return 0;
-     */
+    //The following takes in a number and converts it to an integer using string stream
+    getline(cin,tempInput);
+    stringstream ss;
+    ss<<tempInput;
+    ss>>maxServiceTime;
+
+    //Test
+    cout<<"Test:"<<endl;
+
+    customerTimeQueue->offer(6);
+    customerTimeQueue->offer(18);
+
+    cout<<customerTimeQueue->getSize();
+
+    cout<<"TestPrint:"<<endl;
+    printQueueFront(customerTimeQueue);
+
+    cout<<"Test Poll: "<<customerTimeQueue->poll()<<endl;
+    cout<<customerTimeQueue->peek()<<endl;
+    //End Test
+
+    simulateDay(maxServiceTime);
+
 }
 
-void printQueue( Queue* q ){
+void printQueueFront(Queue *q){
 
+    cout<<"Printing Queue Front"<<endl;
     for (int i = 0; i < q->getSize(); ++i) {
         //lol this isn't even sort of close to working
         cout<<q->peek();
     }
+}
+
+void simulateDay(int maxTime){
+    // total time that will be simulated in minutes
+    const int TOTAL_TIME_SIMULATED = 720;
+
+    int firstCustomerArrival = rand() % maxTime;
+
+    cout<<"First Customer Arrives at: "<<firstCustomerArrival<<endl;
+
 }
