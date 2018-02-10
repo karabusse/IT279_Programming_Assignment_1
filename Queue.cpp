@@ -16,12 +16,13 @@ Queue::Queue() {
  * @param _arrival
  * should return a boolean value but I'm not that good at what I do
  */
-void Queue::offer(int _arrival){
+void Queue::offer(int _arrival, int _serviceTime){
 
     cout<<"Offering Sacrifice to Queue"<<endl;
     //initiate new node with element as arrival
     node *newNode = new node;
     newNode->arrival = _arrival;
+    newNode->serviceTime = _serviceTime;
     newNode->next = nullptr;
 
     /*test
@@ -58,9 +59,17 @@ void Queue::offer(int _arrival){
 /**
  * @return front of the queue arrival value
  */
-int Queue::peek(){
+int Queue::peekArrival(){
 
     return front->arrival;
+}
+
+/**
+ * @return front of the queue service time value
+ */
+int Queue::peekServiceTime(){
+
+    return front->serviceTime;
 }
 
 /**

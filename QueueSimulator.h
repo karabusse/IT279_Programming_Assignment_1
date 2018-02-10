@@ -15,6 +15,7 @@ private:
     struct node{
         //arrival time of the customer to the queue
         int arrival;
+        int serviceTime;
         //next refers to the next node starting with the next one after front etc
         node *next;
         //previous would refer to the previously added node
@@ -34,10 +35,12 @@ public:
     Queue();
 
     //Add an item to the rear of the queue
-    void offer(int _arrival);
+    void offer(int _arrival,  int _serviceTime);
 
-    //Return element at front of queue without removing it.
-    int peek();
+    //Return arrival of customer at front of queue without removing it.
+    int peekArrival();
+
+    int peekServiceTime();
 
     //take the item from the front of the queue
     int poll();
@@ -46,5 +49,13 @@ public:
     int getSize();
 };
 
+class Simulator{
+
+public:
+    void simulateDay(int maxTime);
+    int scheduleTime(int minTime, int maxTime){
+
+    }
+};
 
 #endif //LINKEDLIST_QUEUE_H

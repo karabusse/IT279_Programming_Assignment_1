@@ -107,42 +107,9 @@ Goodbye
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 Queue program: 
-Develop a queue class using a linked list representation and integer data and use it in a program to simulate a check-out line at a supermarket.  Customers arrive in random integer intervals of 1 to x minutes.  Also, each customer is serviced in random integer intervals of 1 to x minutes.  Request a value for x at the beginning of the run.  Run the supermarket simulation for a 12-hour day (720 minutes) using the following algorithm:
+Develop a queue class using a linked list representation and integer data and use it in a program to simulate a check-out line at a supermarket.  Customers arrive in random integer intervals of 1 to x minutes.
+Also, each customer is serviced in random integer intervals of 1 to x minutes.  Request a value for x at the beginning of the run.  Run the supermarket simulation for a 12-hour day (720 minutes) using the following algorithm:
 1.	Choose a random integer between 1 and x to determine the minute at which the first customer arrives.
 2.	At the first customer’s arrival time:
 Print an arrival message;
@@ -166,13 +133,17 @@ Customer xx left at yy.
 
 Where xx represents which customer, counting from 1 (not zero), and yy is the current time (in the range 1-720).
 
-At the end of the simulation, your program must print out the maximum number of customers in the queue at any one time, and the longest wait any one customer experienced.  Note that the number of customers in the queue does not include the one being waited on, and the wait does not include service time.
+At the end of the simulation, your program must print out the maximum number of customers in the queue at any one time, and the longest wait any one customer experienced.
+Note that the number of customers in the queue does not include the one being waited on, and the wait does not include service time.
 
-Don’t make up your own algorithm: use this one.  Don’t use a queue of customers, just ints, that’s all you need if you do it as specified.  Note that the algorithm does not specifically deal with every situation, however.  Do complete the details so that it works fully.
+Don’t make up your own algorithm: use this one.  Don’t use a queue of customers, just ints, that’s all you need if you do it as specified.  Note that the algorithm does not specifically deal with every situation, however.
+Do complete the details so that it works fully.
 
  
 General program requirements:
-Your stack and queue classes must be good ADT implementations.  Do not allow the specifics of the application to impact the design and implementation of those classes.  Make sure that your classes use good dynamic memory management (so they must have correct destructors, copy constructors and assignment operators).
+Your stack and queue classes must be good ADT implementations.
+Do not allow the specifics of the application to impact the design and implementation of those classes.
+Make sure that your classes use good dynamic memory management (so they must have correct destructors, copy constructors and assignment operators).
 
 Submit the following items
 (1)	Group submission: (a) your source files from the School’s linux machines using ReggieNet.  Note that you should have at least three files (one .h and 2 .cpp) for each program.  Name your files with clearly meaningful names (no main.cpp, please).  Since you can attach no more than 5 files to an assignment, you will need to zip or tar your files.  Please submit two files, one named either stack.zip or stack.tar, containing your stack program, the other named either queue.zip or queue.tar, containing your queue program.  Include only the .h and .cpp files and a makefile if you have one, no folders, no backup files, no executables, nothing extra.
