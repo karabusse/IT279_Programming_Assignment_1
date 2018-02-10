@@ -18,22 +18,23 @@ private:
         //next refers to the next node starting with the next one after front etc
         node *next;
         //previous would refer to the previously added node
-        //node *prev;
+        node *prev;
     };
 
     //holds the length of the queue, is changed in offer and poll
     int size;
 
+
+public:
+
     //Node pointer for the beginning and end of the queue
     node *front , *rear;
 
-public:
     //initiates front and rear
     Queue();
 
-
     //Add an item to the rear of the queue
-    void offer(int element);
+    void offer(int _arrival);
 
     //Return element at front of queue without removing it.
     int peek();

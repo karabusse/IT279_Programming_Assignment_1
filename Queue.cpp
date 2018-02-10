@@ -1,5 +1,5 @@
 //
-// Created by bhbro on 2/4/2018.
+// Created by Bronwyn on 2/4/2018.
 //
 
 #include "QueueSimulator.h"
@@ -8,6 +8,7 @@ Queue::Queue() {
 
     front = nullptr;
     rear = nullptr;
+    size = 0;
 }
 
 /**
@@ -23,7 +24,7 @@ void Queue::offer(int _arrival){
     newNode->arrival = _arrival;
     newNode->next = nullptr;
 
-    //test
+    /*test
     cout<<"New Node Created"<<endl;
 
     cout<<"Node Arrival Time: "<<newNode->arrival<<endl;
@@ -33,24 +34,25 @@ void Queue::offer(int _arrival){
     rear = newNode;//breaking here with Access ...
     cout<<"Rear"<<rear<<endl;
     cout<<"rear = newNode: "<<rear->arrival;
-    //end test
+    end test
+     */
 
     //if it's the first node set it to front and rear
     if(front==nullptr){
 
-        cout<<"Front and Rear Null"<<endl;
-        //newNode->prev = nullptr;
+        newNode->prev = nullptr;
 
         front = newNode;
         rear = newNode;
-        cout<<"Front and Rear set to new node"<<endl;
     }
     else{
         //if it's not the only node attach it to the rear of the queue
-        //newNode->prev = rear;
+        newNode->prev = rear;
         rear->next = newNode;
         rear = newNode;
     }
+    //adjust queue size
+    size++;
 }
 
 /**
@@ -76,8 +78,12 @@ int Queue::poll(){
         //set the front to next there by eliminating front (hopefully c++ can garbage collect enough for that)
         front = front->next;
 
+        //adjust queue size
+        size--;
+
         //return value of removed node
         return temp;
+
     }
 }
 
