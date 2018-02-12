@@ -167,9 +167,11 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
  */
 int Simulator::scheduleTime(int minTime, int maxTime){
 
-    int random;
-    int range =(maxTime-minTime)+1;
-    random = minTime+int(range*rand()/(RAND_MAX +1));
+    random_device rd;  //Will be used to obtain a seed for the random number engine
+    mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    uniform_int_distribution<> dis(minTime, maxTime);
+
+    int random = dis(gen);
 
     return random;
 }
