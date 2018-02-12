@@ -95,6 +95,8 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
 
     previousArrivalTime = customerArrival;
     cout<<"First Customer Arrives at: "<<customerArrival<<endl;
+    currerntNumOfCustomers++;
+    maxQueueSize++;
 
     int serviceTime = scheduleTime(0, maxServiceTime);
     customerQueue->offer(customerArrival, serviceTime);
@@ -127,12 +129,13 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
         //cout<<"New Customer Arrival Time: "<<customerArrival<<" New Customer Service Time: "<<serviceTime<<endl;
         customerPool->offer(customerArrival, serviceTime);
 
+        //sets the previous arrival time so customers wont arrive before the previous customer arrived
         previousArrivalTime = customerArrival;
     }
 
 
     //set the number of customers to the complete queue.
-    customerNumber = customerPool->getSize()+1;
+    customerTotal = customerPool->getSize()+1;
 
     //get the fist customer exit time and remove them from the queue
     currentCustomerExit = customerQueue->peekArrival() + customerQueue->peekServiceTime();
@@ -142,19 +145,18 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
      *      If the next customer arrives,
      *      Print an arrival message;
      */
-
-    cout<<"While Customers are left, loop through service customers"<<endl;
     while (customerPool->getSize() != 0 || customerQueue->getSize() != 0) {
 
         cout<<"\nPool size: "<<customerPool->getSize()<<"\nQueue Size (minus customer being served): "<<customerQueue->getSize() - 1<<endl;
-        serviceCustomers();
 
+        //loops through checks to see when customers come and go
+        serviceCustomers();
     }
 
     /**
      *    At the end of the simulation, your program must print out the maximum number of customers in the queue at any one time, and the longest wait any one customer experienced.
      */
-    cout<<"Customers served today: "<<customerNumber<<endl;
+    cout<<"\nCustomers served today: "<<customerTotal<<"\nMax Size of Queue: "<<maxQueueSize<<"\nMax Time a Customer Waited: "<<maxWaitTime<<endl;
 }
 
 
@@ -169,7 +171,6 @@ int Simulator::scheduleTime(int minTime, int maxTime){
     int range =(maxTime-minTime)+1;
     random = minTime+int(range*rand()/(RAND_MAX +1));
 
-
     return random;
 }
 
@@ -177,17 +178,15 @@ int Simulator::scheduleTime(int minTime, int maxTime){
  * checks the exit time of the current customer and compares it to the arrival time of the next customer.
  * If the next customer arrives sooner, print arrival message. and increment time. Otherwise just print exit
  */
-//sorry it's a bit slopy
+//sorry it's a bit sloppy
 void Simulator::serviceCustomers(){
     //cout<<"Customer Exit Time: "<<currentCustomerExit<<" Next Customer Arrival: "<<customerPool->peekArrival()<<endl;
 
+    //prevents it from breaking at customerPool->peekArrival();
     if(customerPool->getSize() <= 0){
 
-        /**
-         *      If service was completed for the last customer:
-         *      Print a departure message;
-         */
-        cout<<"Customer Left at: "<<currentCustomerExit;
+        //no more customers arriving, next customer leaves
+        cout<<"Customer "<<currerntNumOfCustomers<<" Left at: "<<currentCustomerExit;
         /**
          *      Dequeue the next customer to be serviced;
          *      Determine customer’s service completion time;
@@ -196,47 +195,83 @@ void Simulator::serviceCustomers(){
         if (customerQueue->getSize() > 1){
 
             cout<<" Serving Next Customer"<<endl;
+
+            customerQueue->poll();
+
+            //check to see if this customers wait time is greater then the maximum wait time
+            calculateWait();
+
             currentCustomerExit = currentCustomerExit + customerQueue->peekServiceTime();
+
+            //increment customer # served
+            currerntNumOfCustomers++;
+
         }
         else{
             cout<<"\nLast Customer Served Exiting"<<endl;
+
+            customerQueue->poll();
         }
-        customerQueue->poll();
+
     }
     else if( currentCustomerExit > customerPool->peekArrival() ){
-        //arrival message
-        cout<<"\nNext Customer Arrives at: "<<customerPool->peekArrival()<<endl;
-        //move customer from the pool to the customers waiting
-        customerQueue->offer(customerPool->peekArrival(), customerPool->peekServiceTime());
-        customerPool->poll();
+
+        addToCustomerQueue();
     }
     else{
         /**
          *      If service was completed for the last customer:
          *      Print a departure message;
-         */
-        cout<<"Customer Left at: "<<currentCustomerExit<<" Serving Next Customer"<<endl;
-        /**
+         *
          *      Dequeue the next customer to be serviced;
          *      Determine customer’s service completion time;
+         *
          */
+        cout<<"Customer "<<currerntNumOfCustomers<<" Left at: "<<currentCustomerExit<<" Serving Next Customer"<<endl;
+
         customerQueue->poll();
-        //super gross way to handle it but it might just work
 
-        if (customerQueue->getSize() <= 0) {
+        //customer queue is empty therefore we need to wait till the next customer arrives
+        if (customerQueue->getSize() <= 0){
 
-            //arrival message
-            cout << "\nNext Customer Arrives at: " << customerPool->peekArrival() << endl;
-
-            //move customer from the pool to the customers waiting
-            customerQueue->offer(customerPool->peekArrival(), customerPool->peekServiceTime());
-            customerPool->poll();
-
+            addToCustomerQueue();
+            //update exit time to new customer
             currentCustomerExit = customerQueue->peekArrival() + customerQueue->peekServiceTime();
         }
         else{
+
+            //check to see if this customers wait time is greater then the maximum wait time
+            calculateWait();
+
+            //get exit time
             currentCustomerExit = currentCustomerExit + customerQueue->peekServiceTime();
         }
+        currerntNumOfCustomers++;
+    }
+}
+
+void Simulator::addToCustomerQueue(){
+    //arrival message
+    cout << "\nNext Customer Arrives at: " << customerPool->peekArrival() << endl;
+
+    //move customer from the pool to the customers waiting
+    customerQueue->offer(customerPool->peekArrival(), customerPool->peekServiceTime());
+    customerPool->poll();
+
+    if(customerQueue->getSize() > maxQueueSize){
+        maxQueueSize = customerQueue->getSize();
+    }
+
+}
+
+
+//calculates if this customer has waited more then the maximum wait time and update maxWaitTime if appropriate
+void Simulator::calculateWait(){
+
+    //get max wait time of waiting customer
+    if(maxWaitTime < currentCustomerExit - customerQueue->peekArrival()){
+
+        maxWaitTime = currentCustomerExit - customerQueue->peekArrival();
     }
 }
 

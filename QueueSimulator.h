@@ -58,7 +58,15 @@ public:
 
 
     //keeps track of the number of customers that go through the service line
-    int customerNumber = 0;
+    int customerTotal = 0;
+
+    int currerntNumOfCustomers = 0;
+
+    //holds the maximum number in the customer queue at any given time
+    int maxQueueSize = 0;
+
+    //holds time maximum time a customer has ever waited
+    int maxWaitTime = 0;
 
     //holds the temp value for the last generated customer arrival time
     int customerArrival;
@@ -73,8 +81,24 @@ public:
     const int TOTAL_TIME_SIMULATED = 720;
 
     void simulateDay(int maxServiceTime, int maxTimeBetweenCustomers);
+
+    /**
+     *  Schedule the arrival time of the next customer;
+     *  as well as Determine customer’s service time (random integer from 1 to x);
+     * @return random arival time
+     */
     int scheduleTime(int minTime, int maxTime);
+
+    /**
+     * compares the arrival time of the next customer vs the exit time of the current customer
+     */
     void serviceCustomers();
+
+    //push a customer to the customer queue
+    void addToCustomerQueue();
+
+    //calculates if this customer has waited more then the maximum wait time and update maxWaitTime if appropriate
+    void calculateWait();
 };
 
 #endif //LINKEDLIST_QUEUE_H
