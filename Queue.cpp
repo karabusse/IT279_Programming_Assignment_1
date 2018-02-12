@@ -18,7 +18,7 @@ Queue::Queue() {
  */
 void Queue::offer(int _arrival, int _serviceTime){
 
-    cout<<"Offering Sacrifice to Queue"<<endl;
+   // cout<<"Offering Sacrifice to Queue"<<endl;
     //initiate new node with element as arrival
     node *newNode = new node;
     newNode->arrival = _arrival;

@@ -52,10 +52,29 @@ public:
 class Simulator{
 
 public:
-    void simulateDay(int maxTime);
-    int scheduleTime(int minTime, int maxTime){
 
-    }
+    Queue* customerQueue = new Queue();
+    Queue* customerPool = new Queue();
+
+
+    //keeps track of the number of customers that go through the service line
+    int customerNumber = 0;
+
+    //holds the temp value for the last generated customer arrival time
+    int customerArrival;
+
+    //holds the previous arrival time to increment the simulation in an organized fashion
+    int previousArrivalTime;
+
+    //keep track of when the current customer will leave.
+    int currentCustomerExit;
+
+    // total time that will be simulated in minutes
+    const int TOTAL_TIME_SIMULATED = 720;
+
+    void simulateDay(int maxServiceTime, int maxTimeBetweenCustomers);
+    int scheduleTime(int minTime, int maxTime);
+    void serviceCustomers();
 };
 
 #endif //LINKEDLIST_QUEUE_H
