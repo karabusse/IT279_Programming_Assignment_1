@@ -1,38 +1,44 @@
 //
-// Created by David Mancol on 2/5/18.
+//  Calculator.h
+//  StackPractice
+//
+//  Created by David Mancol on 2/11/18.
+//  Copyright © 2018 David Mancol. All rights reserved.
 //
 
-#ifndef LINKEDLIST_CALCULATOR_H
-#define LINKEDLIST_CALCULATOR_H
+#ifndef Calculator_h
+#define Calculator_h
 #include <iostream>
 using namespace std;
 
+class Calculator{
 
-class Calculator {
 public:
-
-    struct Node {
-        int oldValue;
-        char op;
+    //   Creating a NODE Structure
+    struct node
+    {
         int currentValue;
-        Node *next;
+        char op;
+        int oldValue;
+        struct node *next;
     };
-    Node *top;
 
-    Calculator() {
-        top = 0;
-    }
+    // Creating a class STACK
+    class stack
+    {
+    public:
+        struct node *top;
 
-    void createHead(int currentValue);
-    void push(char op, int currentValue);
-    void pop();
-    int getOldValue();
-    int getCurrentValue();
-    char getOp();
+        stack() // constructor
+        {
+            top=nullptr;
+        }
+        void push(); // to insert an element
+        void pop();  // to delete an element
+        void show(); // to show the stack
+        void createHead(int currentValue);
+    };
 
-    void display();
 };
 
-
-#endif //LINKEDLIST_CALCULATOR_H
-
+#endif /* Header_h */

@@ -1,91 +1,93 @@
 //
 //  main.cpp
-//  Stack
+//  StackPractice
 //
-//  Created by David Mancol on 2/2/18.
+//  Created by David Mancol on 2/11/18.
 //  Copyright © 2018 David Mancol. All rights reserved.
 //
+
 #include <iostream>
 #include "Calculator.h"
 using namespace std;
 
-/**
- * creates head - sets oldVal and op to NULL
- * @param currentValue
- */
-void Calculator::createHead(int currentValue) {
-    struct Node *newNode = new Node;
-    newNode->oldValue = 0;
-    newNode->op = ' ';
-    newNode->currentValue = currentValue;
+void Calculator::stack::createHead(int currentValue) {
+    struct node *ptr = new node;
+    ptr->oldValue = 0;
+    ptr->op = ' ';
+    ptr->currentValue = currentValue;
+    top=ptr;
 }
 
-/**
- * pushes op and current into a node with 3 data pieces
- * @param op
- * @param currentValue
- */
-void Calculator::push(char op, int currentValue) {
-    int temp = top->currentValue;
-    struct Node *newNode = new Node;
-    newNode->oldValue = temp; //takes current value of previous and makes it oldVal
-    newNode->op = op;
-    newNode->currentValue = currentValue;
+// PUSH Operation
+void Calculator::stack::push()
+{
+    int temp = top->currentValue; //set temp to current top value
+    top->oldValue=temp; //sets previous current value to old value
 
-    if(op=='+'){
-        int temp = newNode->oldValue + newNode->currentValue;
-        newNode->currentValue = temp;
-        newNode->oldValue = 0;
-        newNode->op = ' ';
+    char op;
+    int currentValue;
+
+    struct node *ptr;
+    int temp1=0;
+    int temp2=0;
+    int temp3=0;
+
+    //prompt
+    cout<<"\nPUSH Operation";
+    cout<<"Enter an operation followed by an integer: ";
+
+    //input values by typing
+    cin>>op;
+    cin>>currentValue;
+
+    //operations
+    if(ptr->op=='+'){
+        cout<<"hi"<<endl;
+        temp1 = ptr->oldValue;
+        temp2 = ptr->currentValue;
+        temp3 = temp1+temp2;
+        ptr->currentValue = temp3;
+        ptr->oldValue = 0;
+        ptr->op = ' ';
+        top=ptr;
     }
-    if(op=='-') {
-        int temp = newNode->oldValue - newNode->currentValue;
-        newNode->currentValue = temp;
-        newNode->oldValue = 0;
+
+    ptr=new node;
+    ptr->currentValue=currentValue;
+    ptr->op=op;
+    ptr->next=NULL;
+    if(top!=NULL){
+        ptr->next=top;
     }
-    if(op=='*') {
-        int temp = newNode->oldValue * newNode->currentValue;
-        newNode->currentValue = temp;
-        newNode->oldValue = 0;
-    }
-    if(op=='/') {
-        int temp = newNode->oldValue - newNode->currentValue;
-        newNode->currentValue = temp;
-        newNode->oldValue = 0;
-    }
-    if(op=='%') {
-        int temp = newNode->oldValue % newNode->currentValue;
-        newNode->currentValue = temp;
-        newNode->oldValue = 0;
-    }
-    //link part
-    newNode->next = top;
-    //make newnode as top/head
-    top = newNode;
+    top=ptr;
+    cout<<"\nNew item is inserted to the stack!!!";
+
 }
 
-void Calculator::pop() {
-    if (top == 0) {
-        cout << "List is empty!" << endl;
-        return;
+// POP Operation
+void Calculator::stack::pop()
+{
+    struct node *temp;
+    if(top==NULL)
+    {
+        cout<<"\nThe stack is empty!!!";
     }
-    cout << top << " is removed." << endl;
-    top = top->next;
+    temp=top;
+    top=top->next;
+    cout<<"\nPOP Operation........\nPoped value is "<<temp->currentValue;
+    delete temp;
 }
 
-int Calculator::getCurrentValue() {
-    return top->currentValue;
+// Show stack
+void Calculator::stack::show()
+{
+    struct node *ptr1=top;
+    cout<<"\nThe stack is\n";
+    while(ptr1!=NULL)
+    {
+        cout<<ptr1->currentValue<<" ->";
+        ptr1=ptr1->next;
+    }
+    cout<<"NULL\n";
 }
 
-int Calculator::getOldValue() {
-    return top->oldValue;
-}
-
-char Calculator::getOp() {
-    return top->op;
-}
-
-void Calculator::display(){
-    Node temp = *top;
-    cout<<temp.currentValue<<endl;
-}
