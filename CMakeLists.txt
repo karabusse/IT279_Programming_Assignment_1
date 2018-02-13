@@ -3,4 +3,4 @@ project(LinkedList)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(LinkedList Simulator.cpp Queue.cpp QueueSimulator.h)
+add_executable(LinkedList Calculator.cpp Stack.cpp Calculator.h)
