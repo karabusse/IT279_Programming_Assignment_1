@@ -1,6 +1,3 @@
-//
-// Created by Bronwyn on 2/4/2018.
-//
 #include <iostream>
 #include "QueueSimulator.h"
 #include <sstream>
@@ -31,9 +28,6 @@ void simulateDay(int maxTime);
 
 int main() {
 
-    //for test
-   // Queue* customerTimeQueue = new Queue();
-
     int input;
     char choice;
     cout << "Enter the Max number of minutes for the customer service Time "<< endl;
@@ -55,35 +49,17 @@ int main() {
     //for real program
     Simulator sim;
     sim.simulateDay(maxServiceTime, maxTimeBetweenCustomers);
-
-
-    /*Test
-    cout<<"Queue Test:"<<endl;
-
-    customerTimeQueue->offer(6, 12);
-    customerTimeQueue->offer(18, 12);
-
-    cout<<"Queue Size: "<<customerTimeQueue->getSize();
-
-    cout<<"TestPrint:"<<endl;
-    printQueueFront(customerTimeQueue);
-
-    cout<<"Test Poll: "<<customerTimeQueue->poll()<<endl;
-
-    cout<<"TestPrint:"<<endl;
-    printQueueFront(customerTimeQueue);
-    //End Test
-    */
-
 }
 
+/*
+ * Prints the customer service time and arrival time
+ */
 void printQueueFront(Queue *q){
 
     cout<<"Customer Arrives at: "<<q->peekArrival()<<" Service Time: "<<endl;
 }
 
 void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
-
     /**
      *      1.	Choose a random integer between 1 and x to determine the minute at which the first customer arrives.
      *      At the first customer’s arrival time:
@@ -129,7 +105,7 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
         //cout<<"New Customer Arrival Time: "<<customerArrival<<" New Customer Service Time: "<<serviceTime<<endl;
         customerPool->offer(customerArrival, serviceTime);
 
-        //sets the previous arrival time so customers wont arrive before the previous customer arrived
+        //sets the previous arrival time so customers won't arrive before the previous customer arrived
         previousArrivalTime = customerArrival;
     }
 
@@ -163,7 +139,7 @@ void Simulator::simulateDay(int maxServiceTime, int maxTimeBetweenCustomers){
 /**
  *  Schedule the arrival time of the next customer;
  *  as well as Determine customer’s service time (random integer from 1 to x);
- * @return random arival time
+ * @return random arrival time
  */
 int Simulator::scheduleTime(int minTime, int maxTime){
 
@@ -177,13 +153,10 @@ int Simulator::scheduleTime(int minTime, int maxTime){
 }
 
 /**
- * checks the exit time of the current customer and compares it to the arrival time of the next customer.
+ * Checks the exit time of the current customer and compares it to the arrival time of the next customer.
  * If the next customer arrives sooner, print arrival message. and increment time. Otherwise just print exit
  */
-//sorry it's a bit sloppy
 void Simulator::serviceCustomers(){
-    //cout<<"Customer Exit Time: "<<currentCustomerExit<<" Next Customer Arrival: "<<customerPool->peekArrival()<<endl;
-
     //prevents it from breaking at customerPool->peekArrival();
     if(customerPool->getSize() <= 0){
 

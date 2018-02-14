@@ -1,9 +1,8 @@
-//
-// Created by Bronwyn on 2/4/2018.
-//
-
 #include "QueueSimulator.h"
 
+/*
+ * Instantiate queue
+ */
 Queue::Queue() {
 
     front = nullptr;
@@ -24,19 +23,6 @@ void Queue::offer(int _arrival, int _serviceTime){
     newNode->arrival = _arrival;
     newNode->serviceTime = _serviceTime;
     newNode->next = nullptr;
-
-    /*test
-    cout<<"New Node Created"<<endl;
-
-    cout<<"Node Arrival Time: "<<newNode->arrival<<endl;
-
-    cout<<"Rear-null: "<<rear<<endl;
-    cout<<"New Node prt: "<<newNode<<endl;
-    rear = newNode;//breaking here with Access ...
-    cout<<"Rear"<<rear<<endl;
-    cout<<"rear = newNode: "<<rear->arrival;
-    end test
-     */
 
     //if it's the first node set it to front and rear
     if(front==nullptr){

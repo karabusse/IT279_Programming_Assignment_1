@@ -1,7 +1,3 @@
-//
-// Created by Bronwyn on 2/4/2018.
-//
-
 #include <iostream>
 using namespace std;
 
@@ -85,7 +81,7 @@ public:
     /**
      *  Schedule the arrival time of the next customer;
      *  as well as Determine customer’s service time (random integer from 1 to x);
-     * @return random arival time
+     * @return random arrival time
      */
     int scheduleTime(int minTime, int maxTime);
 
